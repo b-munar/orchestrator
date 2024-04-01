@@ -40,5 +40,5 @@ func Login(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"status": "failure"})
 	}
 
-	return c.Status(200).JSON(fiber.Map{"sportmen": SportmenJson.Sportmen, "auth": UserJson.Auth, "subscription": SubJson.Sub})
+	return c.Status(202).JSON(fiber.Map{"sportmen": SportmenJson.Sportmen, "auth": UserJson.Auth, "subscription": SubJson.Sub})
 }
