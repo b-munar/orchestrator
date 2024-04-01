@@ -1,5 +1,13 @@
 # Instalacion
 
+0. Correr los microservicios dependientes a orchestrator
+
+ - https://github.com/b-munar/auth
+
+ - https://github.com/b-munar/sportmen
+
+ - https://github.com/b-munar/subscription
+
 1. Clonar repositorio
 
 ```bash
