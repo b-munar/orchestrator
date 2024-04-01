@@ -4,40 +4,35 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fiber-orchestrator/structs"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 
-	"fiber-orchestrator/structs"
-
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"github.com/spf13/viper"
-
-	uuid "github.com/google/uuid"
 )
 
-func DeleteUser(c *fiber.Ctx, userUuid uuid.UUID) ([]byte, int, error) {
+func LoginUser(c *fiber.Ctx) ([]byte, int, error) {
+	User := new(structs.UserWithoutId)
 
-	NewUser := new(structs.UserId)
-
-	if err := c.BodyParser(NewUser); err != nil {
-		return nil, http.StatusInternalServerError, errors.New("error parser userman")
+	if err := c.BodyParser(User); err != nil {
+		return nil, http.StatusInternalServerError, errors.New("error parser sportman")
 	}
 
 	validate := validator.New(validator.WithRequiredStructEnabled())
 
-	err1 := validate.Struct(NewUser)
+	err1 := validate.Struct(User)
 
 	if err1 != nil {
-
-		return nil, http.StatusInternalServerError, errors.New("error validate userman")
+		return nil, http.StatusInternalServerError, errors.New("error validate sportman")
 
 	}
 
-	NewUser.ID = userUuid
+	JsonUser, _ := json.Marshal(User)
 
-	JsonUser, _ := json.Marshal(NewUser)
+	// request
 
 	viper.SetConfigFile(".env")
 
@@ -46,12 +41,11 @@ func DeleteUser(c *fiber.Ctx, userUuid uuid.UUID) ([]byte, int, error) {
 	viper.AutomaticEnv()
 
 	auth_host, _ := viper.Get("AUTH_HOST").(string)
-
-	auth_path, _ := viper.Get("AUTH_PATH_DELETE").(string)
+	auth_path, _ := viper.Get("AUTH_PATH_LOGIN").(string)
 
 	auth_url := fmt.Sprintf("%s%s", auth_host, auth_path)
 
-	req_user, err := http.NewRequest(http.MethodDelete, auth_url, bytes.NewBuffer(JsonUser))
+	req_user, err := http.NewRequest(http.MethodPost, auth_url, bytes.NewBuffer(JsonUser))
 
 	if err != nil {
 		return nil, http.StatusInternalServerError, errors.New("could not create request")

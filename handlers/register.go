@@ -32,7 +32,7 @@ func Register(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"status": "failure"})
 	}
 
-	var UserJson structs.UserRespose
+	var UserJson structs.UserResponse
 	err_1 := json.Unmarshal(response_user.Data, &UserJson)
 	if err_1 != nil {
 		return c.Status(400).JSON(fiber.Map{"status": "failure"})

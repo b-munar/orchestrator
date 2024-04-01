@@ -16,7 +16,8 @@ func main() {
 		return c.Status(200).SendString("ping")
 	})
 
-	app.Post("/orchestrator", handlers.Register)
+	app.Post("/orchestrator/register", handlers.Register)
+	app.Post("/orchestrator/login", handlers.Login)
 
 	app.Listen(":80")
 }
