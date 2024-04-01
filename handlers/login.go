@@ -34,11 +34,11 @@ func Login(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"status": "failure"})
 	}
 
-	var SubJson []structs.Sub
+	var SubJson structs.Subscription
 	err_3 := json.Unmarshal(response_sub.Data, &SubJson)
 	if err_3 != nil {
 		return c.Status(400).JSON(fiber.Map{"status": "failure"})
 	}
 
-	return c.Status(200).JSON(fiber.Map{"sportmen": SportmenJson.Sportmen, "auth": UserJson.Auth, "subcription": SubJson})
+	return c.Status(200).JSON(fiber.Map{"sportmen": SportmenJson.Sportmen, "auth": UserJson.Auth, "subscription": SubJson.Sub})
 }

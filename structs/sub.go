@@ -5,6 +5,6 @@ type Sub struct {
 	Price int    `json:"price"`
 }
 
-// type ListSub struct {
-// 	Subs []Sub
-// }
+type Subscription struct {
+	Sub []Sub `json:"subscription"`
+}
