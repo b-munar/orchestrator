@@ -8,7 +8,7 @@ import (
 	uuid "github.com/google/uuid"
 )
 
-func GoRegister(c *fiber.Ctx, UserUuid uuid.UUID) (structs.Response, structs.Response, structs.Response) {
+func GoRegisterSportman(c *fiber.Ctx, UserUuid uuid.UUID, role int32) (structs.Response, structs.Response, structs.Response) {
 	response_sport := make(chan structs.Response)
 	response_user := make(chan structs.Response)
 	response_sub := make(chan structs.Response)
@@ -17,7 +17,7 @@ func GoRegister(c *fiber.Ctx, UserUuid uuid.UUID) (structs.Response, structs.Res
 		response_sport <- structs.Response{Data: data, StatusCode: statusCode, Err: err}
 	}()
 	go func() {
-		data, statusCode, err := request.CreateUser(c, UserUuid)
+		data, statusCode, err := request.CreateUser(c, UserUuid, role)
 		response_user <- structs.Response{Data: data, StatusCode: statusCode, Err: err}
 	}()
 	go func() {

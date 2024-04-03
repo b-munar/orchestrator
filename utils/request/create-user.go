@@ -17,7 +17,7 @@ import (
 	uuid "github.com/google/uuid"
 )
 
-func CreateUser(c *fiber.Ctx, userUuid uuid.UUID) ([]byte, int, error) {
+func CreateUser(c *fiber.Ctx, userUuid uuid.UUID, role int32) ([]byte, int, error) {
 
 	NewUser := new(structs.User)
 
@@ -36,6 +36,7 @@ func CreateUser(c *fiber.Ctx, userUuid uuid.UUID) ([]byte, int, error) {
 	}
 
 	NewUser.ID = userUuid
+	NewUser.Role = role
 
 	JsonUser, _ := json.Marshal(NewUser)
 
