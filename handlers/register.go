@@ -11,10 +11,14 @@ import (
 	"encoding/json"
 )
 
-func Register(c *fiber.Ctx) error {
+func RegisterSportman(c *fiber.Ctx) error {
 	UserUuid := uuid.New()
 
-	response_sport, response_user, response_sub := concurrent.GoRegister(c, UserUuid)
+	var role int32
+
+	role = 1
+
+	response_sport, response_user, response_sub := concurrent.GoRegisterSportman(c, UserUuid, role)
 
 	if response_sport.Err != nil || response_user.Err != nil || response_sub.Err != nil {
 		concurrent.GoDelete(c, UserUuid)
@@ -41,9 +45,9 @@ func Register(c *fiber.Ctx) error {
 	var SubJson structs.Subscription
 	err_2 := json.Unmarshal(response_sub.Data, &SubJson)
 	if err_2 != nil {
-		println("holi")
 		return c.Status(400).JSON(fiber.Map{"status": "failure"})
 	}
 
 	return c.Status(201).JSON(fiber.Map{"sportmen": SportmenJson.Sportmen, "auth": UserJson.Auth, "subscription": SubJson.Sub})
+
 }

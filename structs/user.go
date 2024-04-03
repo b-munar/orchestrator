@@ -10,7 +10,8 @@ type UserWithoutId struct {
 }
 
 type UserId struct {
-	ID uuid.UUID `json:"id"`
+	ID   uuid.UUID `json:"id"`
+	Role int32     `json:"role"`
 }
 
 type User struct {
@@ -21,6 +22,7 @@ type User struct {
 type UserToken struct {
 	Email string `json:"email"`
 	Token string `json:"token"`
+	Role  int32  `json:"role"`
 }
 
 type UserResponse struct {
