@@ -20,7 +20,7 @@ func Login(c *fiber.Ctx) error {
 	}
 
 	if UserJson.Auth.Role == 1 {
-		response_sport, response_sub := concurrent.GoLogin(c, UserJson.Auth.Token)
+		response_sport, response_sub := concurrent.GoLoginSportmen(c, UserJson.Auth.Token)
 		if response_sport.Err != nil || response_user.Err != nil || response_sub.Err != nil {
 			return c.Status(400).JSON(fiber.Map{"status": "failure"})
 		}
@@ -40,6 +40,27 @@ func Login(c *fiber.Ctx) error {
 			return c.Status(400).JSON(fiber.Map{"status": "failure"})
 		}
 		return c.Status(202).JSON(fiber.Map{"sportmen": SportmenJson.Sportmen, "auth": UserJson.Auth, "subscription": SubJson.Sub})
+
+	}
+	if UserJson.Auth.Role == 2 {
+
+		data, statusCode, err := request.GetPartner(UserJson.Auth.Token)
+
+		if err != nil {
+			return c.Status(400).JSON(fiber.Map{"status": "failure"})
+		}
+
+		if statusCode != 200 {
+			return c.Status(400).JSON(fiber.Map{"status": "failure"})
+		}
+
+		var PartnerJson structs.PartnerResponse
+		err_2 := json.Unmarshal(data, &PartnerJson)
+		if err_2 != nil {
+			return c.Status(400).JSON(fiber.Map{"status": "failure"})
+		}
+
+		return c.Status(202).JSON(fiber.Map{"auth": UserJson.Auth, "partner": PartnerJson.Partner})
 
 	}
 	return c.Status(400).JSON(fiber.Map{"status": "failure"})

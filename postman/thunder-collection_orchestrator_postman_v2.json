@@ -1,0 +1,116 @@
+{
+    "info": {
+        "_postman_id": "f28232cb-6d6d-459d-a7a7-54c3ecdb6793",
+        "name": "orchestrator",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "login partner",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "localhost:6350/orchestrator/login",
+                    "path": [
+                        "orchestrator",
+                        "login"
+                    ],
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "6350"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"email\": \"partner@email.com\",\n  \"password\": \"password\"\n}"
+                }
+            }
+        },
+        {
+            "name": "register sportman",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "localhost:6350/orchestrator/register/sportman",
+                    "path": [
+                        "orchestrator",
+                        "register",
+                        "sportman"
+                    ],
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "6350"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"email\": \"sportman@email.com\",\n  \"password\": \"password\",\n  \"name\": \"Brahian\",\n  \"last_name\": \"Munar\",\n  \"age\": 26,\n  \"weight\": 63,\n  \"height\": 163,\n  \"country_birth\": \"Colombia\",\n  \"city_birth\": \"Cali\",\n  \"country_residence\": \"Colombia\",\n  \"city_residence\": \"Elvira\",\n  \"length_residence\": 26,\n  \"sports\": [\n    {\n      \"sport\": \"basketball\"\n    }\n  ]\n}"
+                }
+            }
+        },
+        {
+            "name": "register partner",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "localhost:6350/orchestrator/register/partner",
+                    "path": [
+                        "orchestrator",
+                        "register",
+                        "partner"
+                    ],
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "6350"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"email\": \"partner@email.com\",\n  \"password\": \"password\",\n  \"name\": \"parnert\",\n  \"last_name\": \"parnert\",\n  \"age\": 20,\n  \"profession\": \"cowboy\",\n  \"license\": \"Hunter X\",\n  \"country_birth\": \"Colombia\",\n  \"city_birth\": \"Cali\",\n  \"country_residence\": \"Colombia\",\n  \"city_residence\": \"Elvira\",\n  \"sports\": [\"basketball\"],\n  \"companies\": [\"Uniandes\"],\n  \"type_services\": [\"education\"]\n}"
+                }
+            }
+        },
+        {
+            "name": "login sportmen",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "localhost:6350/orchestrator/login",
+                    "path": [
+                        "orchestrator",
+                        "login"
+                    ],
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "6350"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"email\": \"sportman@email.com\",\n  \"password\": \"password\"\n}"
+                }
+            }
+        }
+    ]
+}

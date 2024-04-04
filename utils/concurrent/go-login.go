@@ -7,7 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func GoLogin(c *fiber.Ctx, token string) (structs.Response, structs.Response) {
+func GoLoginSportmen(c *fiber.Ctx, token string) (structs.Response, structs.Response) {
 	response_sport := make(chan structs.Response)
 	response_sub := make(chan structs.Response)
 	go func() {
