@@ -43,26 +43,24 @@ func Login(c *fiber.Ctx) error {
 
 	}
 	if UserJson.Auth.Role == 2 {
-		// response_sport, response_sub := concurrent.GoLoginSportmen(c, UserJson.Auth.Token)
-		// if response_sport.Err != nil || response_user.Err != nil || response_sub.Err != nil {
-		// 	return c.Status(400).JSON(fiber.Map{"status": "failure"})
-		// }
 
-		// if response_sport.StatusCode != 200 || response_user.StatusCode != 202 || response_sub.StatusCode != 200 {
-		// 	return c.Status(400).JSON(fiber.Map{"status": "failure"})
-		// }
-		// var SportmenJson structs.SportmenResponse
-		// err_2 := json.Unmarshal(response_sport.Data, &SportmenJson)
-		// if err_2 != nil {
-		// 	return c.Status(400).JSON(fiber.Map{"status": "failure"})
-		// }
+		data, statusCode, err := request.GetPartner(UserJson.Auth.Token)
 
-		// var SubJson structs.Subscription
-		// err_3 := json.Unmarshal(response_sub.Data, &SubJson)
-		// if err_3 != nil {
-		// 	return c.Status(400).JSON(fiber.Map{"status": "failure"})
-		// }
-		return c.Status(202).JSON(fiber.Map{"auth": UserJson.Auth})
+		if err != nil {
+			return c.Status(400).JSON(fiber.Map{"status": "failure"})
+		}
+
+		if statusCode != 200 {
+			return c.Status(400).JSON(fiber.Map{"status": "failure"})
+		}
+
+		var PartnerJson structs.PartnerResponse
+		err_2 := json.Unmarshal(data, &PartnerJson)
+		if err_2 != nil {
+			return c.Status(400).JSON(fiber.Map{"status": "failure"})
+		}
+
+		return c.Status(202).JSON(fiber.Map{"auth": UserJson.Auth, "partner": PartnerJson.Partner})
 
 	}
 	return c.Status(400).JSON(fiber.Map{"status": "failure"})
