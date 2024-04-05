@@ -5,18 +5,20 @@ import (
 )
 
 type PartnerWithoutId struct {
-	Name             string   `json:"name"`
-	LastName         string   `json:"last_name"`
-	Age              int      `json:"age"`
-	Profesion        string   `json:"profession"`
-	License          string   `json:"license"`
-	CountryBirth     string   `json:"country_birth"`
-	CityBirth        string   `json:"city_birth"`
-	CountryResidence string   `json:"country_residence"`
-	CityResidence    string   `json:"city_residence"`
-	Sport            []string `json:"sports"`
-	Companies        []string `json:"companies"`
-	TypeService      []string `json:"type_services"`
+	Name               string   `json:"name" validate:"required"`
+	LastName           string   `json:"last_name" validate:"required"`
+	Age                int      `json:"age" validate:"required"`
+	Profesion          string   `json:"profession" validate:"required"`
+	License            string   `json:"license"`
+	IdentificationType string   `json:"identification_type" validate:"required"`
+	Identification     string   `json:"identification" validate:"required"`
+	CountryBirth       string   `json:"country_birth" validate:"required"`
+	CityBirth          string   `json:"city_birth" validate:"required"`
+	CountryResidence   string   `json:"country_residence" validate:"required"`
+	CityResidence      string   `json:"city_residence" validate:"required"`
+	Sport              []string `json:"sports" validate:"required"`
+	Companies          []string `json:"companies" validate:"required"`
+	TypeService        []string `json:"type_services" validate:"required"`
 }
 
 type Partner struct {
