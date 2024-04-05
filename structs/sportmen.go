@@ -9,17 +9,19 @@ type SportmenSport struct {
 }
 
 type SportmenWithoutId struct {
-	Name             string          `json:"name"`
-	LastName         string          `json:"last_name"`
-	Age              int             `json:"age"`
-	Weight           int             `json:"weight"`
-	Height           int             `json:"height"`
-	CountryBirth     string          `json:"country_birth"`
-	CityBirth        string          `json:"city_birth"`
-	CountryResidence string          `json:"country_residence"`
-	CityResidence    string          `json:"city_residence"`
-	LengthResidence  int             `json:"length_residence"`
-	Sport            []SportmenSport `json:"sports" validate:"dive"`
+	Name               string          `json:"name" validate:"required"`
+	LastName           string          `json:"last_name" validate:"required"`
+	Age                int             `json:"age" validate:"required"`
+	Weight             int             `json:"weight" validate:"required"`
+	Height             int             `json:"height" validate:"required"`
+	IdentificationType string          `json:"identification_type" validate:"required"`
+	Identification     string          `json:"identification" validate:"required"`
+	CountryBirth       string          `json:"country_birth" validate:"required"`
+	CityBirth          string          `json:"city_birth" validate:"required"`
+	CountryResidence   string          `json:"country_residence" validate:"required"`
+	CityResidence      string          `json:"city_residence" validate:"required"`
+	LengthResidence    int             `json:"length_residence" validate:"required"`
+	Sport              []SportmenSport `json:"sports" validate:"dive"`
 }
 
 type Sportmen struct {
