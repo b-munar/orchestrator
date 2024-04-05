@@ -1,12 +1,14 @@
 # Instalacion
 
-0. Correr los microservicios dependientes a orchestrator
+0. Correr los microservicios dependientes a orchestrator, utilizar la rama develop de cada microservicio
 
  - https://github.com/b-munar/auth
 
  - https://github.com/b-munar/sportmen
 
  - https://github.com/b-munar/subscription
+
+ - https://github.com/b-munar/partner
 
 1. Clonar repositorio
 
@@ -37,7 +39,7 @@ Crea un usuario sportment con los datos brindados, el email del usuario debe ser
 </tr>
 <tr>
 <td> Ruta </td>
-<td> <strong>localhost:6350/orchestrator/register</strong> </td>
+<td> <strong>localhost:6350/orchestrator/register/sportman</strong> </td>
 </tr>
 <tr>
 <td> Parámetros </td>
@@ -53,7 +55,7 @@ Crea un usuario sportment con los datos brindados, el email del usuario debe ser
 
 ```json
 {
-  "email": "lacabra@email.com",
+  "email": "sportman@email.com",
   "password": "password",
   "name": "Brahian",
   "last_name": "Munar",
@@ -92,8 +94,9 @@ Crea un usuario sportment con los datos brindados, el email del usuario debe ser
 ```json
 {
   "auth": {
-    "email": "lacabra@email.com",
-    "token": "eyJ0eXA..."
+    "email": "sportman@email.com",
+    "token": "eyJ0eXA...",
+    "role": 1
   },
   "sportmen": {
     "name": "Brahian",
@@ -133,8 +136,104 @@ Crea un usuario sportment con los datos brindados, el email del usuario debe ser
 </tbody>
 </table>
 
+## 2. Register User Partner
 
-## 2. Login
+Crea un usuario sportment con los datos brindados, el email del usuario debe ser único.
+
+<table>
+<tr>
+<td> Método </td>
+<td> POST </td>
+</tr>
+<tr>
+<td> Ruta </td>
+<td> <strong>localhost:6350/orchestrator/register/partner</strong> </td>
+</tr>
+<tr>
+<td> Parámetros </td>
+<td> N/A </td>
+</tr>
+<tr>
+<td> Encabezados </td>
+<td>N/A</td>
+</tr>
+<tr>
+<td> Cuerpo </td>
+<td>
+
+```json
+{
+  "email": "partner@email.com",
+  "password": "password",
+  "name": "parnert",
+  "last_name": "parnert",
+  "age": 20,
+  "profession": "cowboy",
+  "license": "Hunter X",
+  "country_birth": "Colombia",
+  "city_birth": "Cali",
+  "country_residence": "Colombia",
+  "city_residence": "Elvira",
+  "sports": ["basketball"],
+  "companies": ["Uniandes"],
+  "type_services": ["education"]
+}
+```
+</td>
+</tr>
+</table>
+
+### Respuestas
+
+<table>
+<tr>
+<th> Código </th>
+<th> Descripción </th>
+<th> Cuerpo </th>
+</tr>
+<tbody>
+<td> 201 </td>
+<td>En el caso que el usuario se haya creado con éxito.</td>
+<td>
+
+```json
+{
+  "auth": {
+    "email": "partner@email.com",
+    "token": "eyJ0eXA...",
+    "role": 2
+  },
+  "partner": {
+    "name": "parnert",
+    "last_name": "parnert",
+    "age": 20,
+    "profession": "cowboy",
+    "license": "Hunter X",
+    "country_birth": "Colombia",
+    "city_birth": "Cali",
+    "country_residence": "Colombia",
+    "city_residence": "Elvira",
+    "sports": [
+      "basketball"
+    ],
+    "companies": [
+      "Uniandes"
+    ],
+    "type_services": [
+      "education"
+    ]
+  }
+}
+```
+</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+## 3. Login Sportmen
 
 Inicia sesion de usuario con los datos brindados
 
@@ -161,7 +260,7 @@ Inicia sesion de usuario con los datos brindados
 
 ```json
 {
-  "email": "lacabra@email.com",
+  "email": "sportman@email.com",
   "password": "password"
 }
 ```
@@ -185,8 +284,9 @@ Inicia sesion de usuario con los datos brindados
 ```json
 {
   "auth": {
-    "email": "lacabra@email.com",
-    "token": "eyJ0eXA..."
+    "email": "sportman@email.com",
+    "token": "eyJ0eXA...",
+    "role": 1
   },
   "sportmen": {
     "name": "Brahian",
@@ -219,6 +319,88 @@ Inicia sesion de usuario con los datos brindados
       "price": 39
     }
   ]
+}
+```
+</td>
+</tr>
+</tbody>
+</table>
+
+## 4. Login Partners
+
+Inicia sesion de usuario con los datos brindados
+
+<table>
+<tr>
+<td> Método </td>
+<td> POST </td>
+</tr>
+<tr>
+<td> Ruta </td>
+<td> <strong>localhost:6350/orchestrator/login</strong> </td>
+</tr>
+<tr>
+<td> Parámetros </td>
+<td> N/A </td>
+</tr>
+<tr>
+<td> Encabezados </td>
+<td>N/A</td>
+</tr>
+<tr>
+<td> Cuerpo </td>
+<td>
+
+```json
+{
+  "email": "partner@email.com",
+  "password": "password"
+}
+```
+</td>
+</tr>
+</table>
+
+### Respuestas
+
+<table>
+<tr>
+<th> Código </th>
+<th> Descripción </th>
+<th> Cuerpo </th>
+</tr>
+<tbody>
+<td> 202 </td>
+<td>En el caso que el usuario hizo un login exitoso.</td>
+<td>
+
+```json
+{
+  "auth": {
+    "email": "partner@email.com",
+    "token": "eyJ0eXA...",
+    "role": 2
+  },
+  "partner": {
+    "name": "parnert",
+    "last_name": "parnert",
+    "age": 20,
+    "profession": "cowboy",
+    "license": "Hunter X",
+    "country_birth": "Colombia",
+    "city_birth": "Cali",
+    "country_residence": "Colombia",
+    "city_residence": "Elvira",
+    "sports": [
+      "basketball"
+    ],
+    "companies": [
+      "Uniandes"
+    ],
+    "type_services": [
+      "education"
+    ]
+  }
 }
 ```
 </td>
