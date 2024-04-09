@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-orchestrator
+  annotations:
+    cloud.google.com/backend-config: '{"default": "orchestrator-config"}'
+spec:
+  type: NodePort
+  selector:
+    app: orchestrator
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 31023
