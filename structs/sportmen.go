@@ -14,6 +14,7 @@ type SportmenWithoutId struct {
 	Age                int             `json:"age" validate:"required"`
 	Weight             int             `json:"weight" validate:"required"`
 	Height             int             `json:"height" validate:"required"`
+	Gender             string          `json:"gender" validate:"required"`
 	IdentificationType string          `json:"identification_type" validate:"required"`
 	Identification     string          `json:"identification" validate:"required"`
 	CountryBirth       string          `json:"country_birth" validate:"required"`
