@@ -1,0 +1,20 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+ name: demo-la-cabra
+description: main application pipeline
+serialPipeline:
+ stages:
+ - targetId: qsprod
+    profiles:
+      - target-1
+
+---
+
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+ name: qsprod
+description: production cluster
+gke:
+ cluster: projects/$PROJECT_ID/locations/us-east1/clusters/cluster-1

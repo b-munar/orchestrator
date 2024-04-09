@@ -1,0 +1,114 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orchestrator
+  labels:
+    app: orchestrator
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: orchestrator
+  template:
+    metadata:
+      labels:
+        app: orchestrator
+    spec:
+      containers:
+        - name: orchestrator
+          image: my-app-image
+          resources:
+            limits:
+              memory: "60Mi"
+              cpu: "0.08"
+            requests:
+              memory: "60Mi"
+              cpu: "0.08"
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
+
+          env:
+            - name: "AUTH_HOST"
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets 
+                  key: AUTH_HOST
+            - name: "SUB_HOST"
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets 
+                  key: SUB_HOST
+            - name: "SPORT_HOST"
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets 
+                  key: SPORT_HOST
+            - name: "PARTNER_HOST"
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets 
+                  key: PARTNER_HOST
+
+            - name: "AUTH_PATH_REGISTER"
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets 
+                  key: AUTH_PATH_REGISTER
+            - name: "SPORT_PATH_CREATE"
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets 
+                  key: SPORT_PATH_CREATE
+            - name: "PARTNER_PATH_CREATE"
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets 
+                  key: PARTNER_PATH_CREATE
+            - name: "SUB_PATH_LIST"
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets 
+                  key: SUB_PATH_LIST
+
+            - name: "AUTH_PATH_DELETE"
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets 
+                  key: AUTH_PATH_DELETE
+            - name: "SPORT_PATH_DELETE"
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets 
+                  key: SPORT_PATH_DELETE
+
+            - name: "AUTH_PATH_LOGIN"
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets 
+                  key: AUTH_PATH_LOGIN
+            - name: "SPORT_PATH_GET"
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets 
+                  key: SPORT_PATH_GET
+            - name: "PARTNER_PATH_GET"
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets 
+                  key: PARTNER_PATH_GET
+
+
+
+---
+
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: orchestrator-config
+spec:
+  healthCheck:
+    checkIntervalSec: 30
+    port: 80
+    type: HTTP
+    requestPath: /orchestrator/ping
