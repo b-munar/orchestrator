@@ -34,13 +34,30 @@ func Login(c *fiber.Ctx) error {
 			return c.Status(400).JSON(fiber.Map{"status": "failure"})
 		}
 
-		var SubJson structs.Subscription
-		err_3 := json.Unmarshal(response_sub.Data, &SubJson)
+		type Activate struct {
+			Activate bool `json:"activate"`
+		}
+
+		type SubscriptionActivate struct {
+			Subscription Activate `json:"subscription"`
+		}
+
+		var SubAct SubscriptionActivate
+
+		err_3 := json.Unmarshal(response_sub.Data, &SubAct)
 		if err_3 != nil {
 			return c.Status(400).JSON(fiber.Map{"status": "failure"})
 		}
-		return c.Status(202).JSON(fiber.Map{"sportmen": SportmenJson.Sportmen, "auth": UserJson.Auth, "subscription": SubJson.Sub})
 
+		if SubAct.Subscription.Activate == false {
+			var SubJson structs.SubscriptionList
+			err_4 := json.Unmarshal(response_sub.Data, &SubJson)
+			if err_4 != nil {
+				return c.Status(400).JSON(fiber.Map{"status": "failure"})
+			}
+			return c.Status(202).JSON(fiber.Map{"sportmen": SportmenJson.Sportmen, "auth": UserJson.Auth, "subscription": SubJson.Subscriptions})
+
+		}
 	}
 	if UserJson.Auth.Role == 2 {
 
