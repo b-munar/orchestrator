@@ -21,7 +21,7 @@ func GoRegisterSportman(c *fiber.Ctx, UserUuid uuid.UUID, role int32) (structs.R
 		response_user <- structs.Response{Data: data, StatusCode: statusCode, Err: err}
 	}()
 	go func() {
-		data, statusCode, err := request.GetSub()
+		data, statusCode, err := request.GetSubList()
 		response_sub <- structs.Response{Data: data, StatusCode: statusCode, Err: err}
 	}()
 	return <-response_sport, <-response_user, <-response_sub

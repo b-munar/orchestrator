@@ -97,6 +97,11 @@ spec:
                 secretKeyRef:
                   name: appsecrets 
                   key: PARTNER_PATH_GET
+            - name: "SUB_PATH_GET"
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets 
+                  key: SUB_PATH_GET
 
 
 
