@@ -42,12 +42,12 @@ func RegisterSportman(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"status": "failure"})
 	}
 
-	var SubJson structs.Subscription
+	var SubJson structs.SubscriptionList
 	err_2 := json.Unmarshal(response_sub.Data, &SubJson)
 	if err_2 != nil {
 		return c.Status(400).JSON(fiber.Map{"status": "failure"})
 	}
 
-	return c.Status(201).JSON(fiber.Map{"sportmen": SportmenJson.Sportmen, "auth": UserJson.Auth, "subscription": SubJson.Sub})
+	return c.Status(201).JSON(fiber.Map{"sportmen": SportmenJson.Sportmen, "auth": UserJson.Auth, "subscription": SubJson.Subscriptions})
 
 }

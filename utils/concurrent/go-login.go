@@ -15,7 +15,7 @@ func GoLoginSportmen(c *fiber.Ctx, token string) (structs.Response, structs.Resp
 		response_sport <- structs.Response{Data: data, StatusCode: statusCode, Err: err}
 	}()
 	go func() {
-		data, statusCode, err := request.GetSub()
+		data, statusCode, err := request.GetSub(token)
 		response_sub <- structs.Response{Data: data, StatusCode: statusCode, Err: err}
 	}()
 	return <-response_sport, <-response_sub
