@@ -5,6 +5,7 @@ import (
 	"fiber-orchestrator/structs"
 	"fiber-orchestrator/utils/concurrent"
 	"fiber-orchestrator/utils/request"
+	"fmt"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -49,10 +50,21 @@ func Login(c *fiber.Ctx) error {
 			return c.Status(400).JSON(fiber.Map{"status": "failure"})
 		}
 
-		if SubAct.Subscription.Activate == false {
-			var SubJson structs.SubscriptionList
+		if SubAct.Subscription.Activate {
+			var SubJson structs.SubscriptionGet
 			err_4 := json.Unmarshal(response_sub.Data, &SubJson)
 			if err_4 != nil {
+				fmt.Printf("el error esta aca")
+				return c.Status(400).JSON(fiber.Map{"status": "failure"})
+			}
+			return c.Status(202).JSON(fiber.Map{"sportmen": SportmenJson.Sportmen, "auth": UserJson.Auth, "subscription": SubJson.Subscription})
+
+		}
+
+		if SubAct.Subscription.Activate == false {
+			var SubJson structs.SubscriptionList
+			err_5 := json.Unmarshal(response_sub.Data, &SubJson)
+			if err_5 != nil {
 				return c.Status(400).JSON(fiber.Map{"status": "failure"})
 			}
 			return c.Status(202).JSON(fiber.Map{"sportmen": SportmenJson.Sportmen, "auth": UserJson.Auth, "subscription": SubJson.Subscriptions})

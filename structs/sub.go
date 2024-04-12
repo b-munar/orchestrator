@@ -20,6 +20,8 @@ type SubscriptionList struct {
 	Subscriptions Subscriptions `json:"subscription"`
 }
 
+//
+
 type SubscriptionWithoutId struct {
 	Id        uuid.UUID `gorm:"primaryKey;type:uuid;" json:"id"`
 	Price     float32   `json:"price" validate:"required"`
@@ -27,4 +29,12 @@ type SubscriptionWithoutId struct {
 	Plan      string    `json:"plan" validate:"required"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+}
+
+type SubscriptionGet struct {
+	Subscription struct {
+		Sub      SubscriptionWithoutId `json:"subscription"`
+		Activate bool                  `json:"activate"`
+	} `json:"subscription"`
+	Activate bool `json:"activate"`
 }
