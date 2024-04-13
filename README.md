@@ -62,6 +62,7 @@ Crea un usuario sportment con los datos brindados, el email del usuario debe ser
   "age": 26,
   "weight": 63,
   "height": 163,
+  "gender": "superman",
   "country_birth": "Colombia",
   "city_birth": "Cali",
   "country_residence": "Colombia",
@@ -104,6 +105,7 @@ Crea un usuario sportment con los datos brindados, el email del usuario debe ser
     "age": 26,
     "weight": 63,
     "height": 163,
+    "gender": "superman",
     "country_birth": "Colombia",
     "city_birth": "Cali",
     "country_residence": "Colombia",
@@ -115,20 +117,23 @@ Crea un usuario sportment con los datos brindados, el email del usuario debe ser
       }
     ]
   },
-  "subscription": [
-    {
-      "plan": "basico",
-      "price": 0
-    },
-    {
-      "plan": "intermedio",
-      "price": 19
-    },
-    {
-      "plan": "premium",
-      "price": 39
-    }
-  ]
+  "subscription": {
+    "subscriptions": [
+      {
+        "plan": "basico",
+        "price": 0
+      },
+      {
+        "plan": "intermedio",
+        "price": 19
+      },
+      {
+        "plan": "premium",
+        "price": 39
+      }
+    ],
+    "activate": false
+  }
 }
 ```
 </td>
@@ -298,6 +303,8 @@ Inicia sesion de usuario con los datos brindados
     "age": 26,
     "weight": 63,
     "height": 163,
+    "gender": "superman",
+
     "identification_type": "CC",
     "identification": "314159",
     "country_birth": "Colombia",
@@ -311,21 +318,73 @@ Inicia sesion de usuario con los datos brindados
       }
     ]
   },
-  "subscription": [
-    {
-      "plan": "basico",
-      "price": 0
-    },
-    {
-      "plan": "intermedio",
-      "price": 19
-    },
-    {
-      "plan": "premium",
-      "price": 39
-    }
-  ]
+  "subscription": {
+    "subscriptions": [
+      {
+        "plan": "basico",
+        "price": 0
+      },
+      {
+        "plan": "intermedio",
+        "price": 19
+      },
+      {
+        "plan": "premium",
+        "price": 39
+      }
+    ],
+    "activate": false
+  }
 }
+
+```
+
+or
+
+
+```json
+{
+  "auth": {
+    "email": "sportman@email.com",
+    "token": "eyJ0eXA...",
+    "role": 1
+  },
+  "sportmen": {
+    "name": "Brahian",
+    "last_name": "Munar",
+    "age": 26,
+    "weight": 63,
+    "height": 163,
+    "gender": "superman",
+
+    "identification_type": "CC",
+    "identification": "314159",
+    "country_birth": "Colombia",
+    "city_birth": "Cali",
+    "country_residence": "Colombia",
+    "city_residence": "Elvira",
+    "length_residence": 26,
+    "sports": [
+      {
+        "sport": "basketball"
+      }
+    ]
+  },
+{
+  "subscription": {
+    "subscription": {
+      "id": "9a771fd8-ca52-4b80-a125-4f0eab9c6ec3",
+      "price": 39,
+      "frequency": 0,
+      "plan": "premium",
+      "created_at": "2024-04-13T00:30:17.59361276Z",
+      "updated_at": "2024-04-13T00:30:17.59361276Z"
+    },
+    "activate": true
+  }
+}
+}
+
 ```
 </td>
 </tr>
