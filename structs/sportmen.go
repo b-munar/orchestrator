@@ -5,7 +5,7 @@ import (
 )
 
 type SportmenSport struct {
-	Sport string `json:"sport" validate:"oneof=basketball cycling"`
+	Sport string `json:"sport"`
 }
 
 type SportmenWithoutId struct {
@@ -22,7 +22,7 @@ type SportmenWithoutId struct {
 	CountryResidence   string          `json:"country_residence" validate:"required"`
 	CityResidence      string          `json:"city_residence" validate:"required"`
 	LengthResidence    int             `json:"length_residence" validate:"required"`
-	Sport              []SportmenSport `json:"sports" validate:"dive"`
+	Sport              []SportmenSport `json:"sports"`
 }
 
 type Sportmen struct {
