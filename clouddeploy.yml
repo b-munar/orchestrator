@@ -1,7 +1,7 @@
 apiVersion: deploy.cloud.google.com/v1
 kind: DeliveryPipeline
 metadata:
- name: demo-la-cabra
+ name: pipeline-goat
 description: main application pipeline
 serialPipeline:
  stages:
@@ -17,4 +17,4 @@ metadata:
  name: qsprod
 description: production cluster
 gke:
- cluster: projects/$PROJECT_ID/locations/us-east1/clusters/cluster-1
+ cluster: projects/$PROJECT_ID/locations/us-east1/clusters/cluster-goat
