@@ -42,7 +42,7 @@ jobs:
       subscription:
         image: us-east1-docker.pkg.dev/composite-bruin-419400/repo/subscription
         env:
-          AUTH_HOST: http://localhost:6050
+          AUTH_HOST: http://auth
           AUTH_PATH_AUTH: /auth/auth
           SUBSCRIPTION_DB_USER: postgres
           SUBSCRIPTION_DB_HOST: subscription_db
@@ -65,9 +65,9 @@ jobs:
       partner:
         image: us-east1-docker.pkg.dev/composite-bruin-419400/repo/partner
         env:
-          AUTH_HOST: http://localhost:6050
+          AUTH_HOST: http://auth
           AUTH_PATH_AUTH: /auth/auth
-          AUTH_PORT: 6050
+          AUTH_PORT: 80
           PARTNER_DB_USER: postgres
           PARTNER_DB_HOST: partner_db
           PARTNER_DB_NAME: postgres
@@ -89,7 +89,7 @@ jobs:
       sportmen:
         image: us-east1-docker.pkg.dev/composite-bruin-419400/repo/sportmen
         env:
-          AUTH_HOST: http://localhost:6050
+          AUTH_HOST: http://auth
           AUTH_PATH_AUTH: /auth/auth
           SPORTMEN_DB_USER: postgres
           SPORTMEN_DB_HOST: sportmen_db
@@ -98,6 +98,27 @@ jobs:
           SPORTMEN_DB_PORT: 5432
         ports:
           - 6250:80
+  
+      orchestrator:
+        image: us-east1-docker.pkg.dev/composite-bruin-419400/repo/orchestrator
+        env:
+          AUTH_HOST: http://auth
+          SUB_HOST: http://subscription
+          SPORT_HOST: http://sportment
+          PARTNER_HOST: http://partner
+          AUTH_PATH_REGISTER: /auth/register
+          SPORT_PATH_CREATE: /sportmen
+          PARTNER_PATH_CREATE: /partner
+          SUB_PATH_LIST: /subscription/list
+          AUTH_PATH_DELETE: /auth/delete
+          SPORT_PATH_DELETE: /sportmen
+          AUTH_PATH_LOGIN: /auth/login
+          SPORT_PATH_GET: /sportmen
+          PARTNER_PATH_GET: /partner
+          SUB_PATH_GET: /subscription
+
+        ports:
+          - 6350:80
  
 
     steps:
@@ -111,3 +132,5 @@ jobs:
         run: curl  -X GET 'localhost:6650/partner/ping'
       - name: Ping Subscription
         run: curl 'localhost:6450/subscription/ping'
+      - name: Ping Orchestrator
+        run: curl 'localhost:6350/orchestrator/ping'
