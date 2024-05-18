@@ -104,7 +104,7 @@ jobs:
         env:
           AUTH_HOST: http://auth
           SUB_HOST: http://subscription
-          SPORT_HOST: http://sportment
+          SPORT_HOST: http://sportmen
           PARTNER_HOST: http://partner
           AUTH_PATH_REGISTER: /auth/register
           SPORT_PATH_CREATE: /sportmen
