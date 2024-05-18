@@ -126,7 +126,7 @@ jobs:
 
       - name: Ping Auth
         run: curl  -X GET 'localhost:6050/auth/ping'
-        
+
       - name: Ping Sportmen
         run: curl  -X GET 'localhost:6250/sportmen/ping'
 
@@ -169,7 +169,7 @@ jobs:
       - name: Register Orchestrator Partner
         run: |
           curl  -X POST \
-          'localhost:6350/orchestrator/orchestrator/register/partner' \
+          'localhost:6350/orchestrator/register/partner' \
           --header 'Content-Type: application/json' \
           --data-raw '{
           "email": "partner@email.com",
