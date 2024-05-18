@@ -137,8 +137,7 @@ jobs:
       
       - name: Register Orchestartor
         run: >
-          curl  -X POST \
-          'localhost:6350/orchestrator/register/sportman' \
+          curl POST 'localhost:6350/orchestrator/register/sportman' \
           --header 'Accept: */*' \
           --header 'Content-Type: application/json' \
           --data-raw '{
