@@ -134,3 +134,33 @@ jobs:
         run: curl 'localhost:6450/subscription/ping'
       - name: Ping Orchestrator
         run: curl 'localhost:6350/orchestrator/ping'
+      
+      - name: Register Orchestartor
+        run: >
+          curl  -X POST \
+          'http://localhost:6350/orchestrator/register/sportman' \
+          --header 'Accept: */*' \
+          --header 'Content-Type: application/json' \
+          --data-raw '{
+          "email": "tejo@email.com",
+          "password": "password",
+          "name": "Brahian",
+          "last_name": "Munar",
+          "age": 26,
+          "weight": 63,
+          "height": 163,
+          "gender": "superman",
+          "identification_type": "CC",
+          "identification": "314159",
+          "country_birth": "Colombia",
+          "city_birth": "Cali",
+          "country_residence": "Colombia",
+          "city_residence": "Elvira",
+          "length_residence": 26,
+          "sports": [
+            {
+              "sport": "tejo"
+            }
+          ]
+          }'
+        
