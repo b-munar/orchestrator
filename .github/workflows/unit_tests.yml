@@ -192,17 +192,17 @@ jobs:
       - name: Login Orchestrator Sportment
         run: |
           curl  -X POST \
-          ''localhost:6350/orchestrator/login' \
+          'localhost:6350/orchestrator/login' \
           --header 'Content-Type: application/json' \
           --data-raw '{
           "email": "sportmen@email.com",
           "password": "password"
           }'
-          
+
       - name: Login Orchestrator Partner
         run: |
           curl  -X POST \
-          ''localhost:6350/orchestrator/login' \
+          'localhost:6350/orchestrator/login' \
           --header 'Content-Type: application/json' \
           --data-raw '{
           "email": "partner@email.com",
