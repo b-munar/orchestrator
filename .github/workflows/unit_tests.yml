@@ -10,7 +10,7 @@ jobs:
     environment: secret
     services:
 
-      postgres-auth:
+      auth_db:
         image: postgres
         env:
           POSTGRES_USER: postgres
@@ -19,6 +19,15 @@ jobs:
         ports:
           - 6000:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+      auth:
+        image: us-east1-docker.pkg.dev/composite-bruin-419400/repo/auth-test
+        env:
+          AUTH_DATABASE_URL_PATH: postgres://postgres:postgres@auth_db:5432/postgres
+          AUTH_SECRET: secret
+          DATABASE_URL: postgres://postgres:postgres@auth_db:5432/postgres
+        ports:
+          - 6050:80
 
       subscription_db:
         image: postgres
@@ -43,7 +52,6 @@ jobs:
         ports:
           - 6450:80
    
-
       partner_db:
         image: postgres
         env:
@@ -94,6 +102,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+
+      - name: Ping Auth
+        run: curl  -X GET 'localhost:6050/auth/ping'
       - name: Ping Sportmen
         run: curl  -X GET 'localhost:6250/sportmen/ping'
       - name: Ping Partner
