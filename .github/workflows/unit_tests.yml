@@ -53,10 +53,6 @@ jobs:
       sportmen:
         image: us-east1-docker.pkg.dev/composite-bruin-419400/repo/sportmen
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-
           AUTH_HOST: http://localhost:6050
           AUTH_PATH_AUTH: /auth/auth
           SPORTMEN_DB_USER: postgres
@@ -66,7 +62,6 @@ jobs:
           SPORTMEN_DB_PORT: 5432
         ports:
           - 6250:80
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
       
 
     steps:
