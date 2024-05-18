@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [ "develop" ]
 jobs:
-  test_SPORTMEN:
+  test_orchestrator:
     runs-on: ubuntu-latest
     environment: secret
     services:
@@ -30,6 +30,30 @@ jobs:
           - 6400:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
+      partner_db:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 6600:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+      partner:
+        image: us-east1-docker.pkg.dev/composite-bruin-419400/repo/partner
+        env:
+          AUTH_HOST: http://localhost:6050
+          AUTH_PATH_AUTH: /auth/auth
+          SPORTMEN_DB_USER: postgres
+          SPORTMEN_DB_HOST: partner_db
+          SPORTMEN_DB_NAME: postgres
+          SPORTMEN_DB_PASSWORD: postgres
+          SPORTMEN_DB_PORT: 5432
+        ports:
+          - 6250:80
+   
+
       sportmen_db:
         image: postgres
         env:
@@ -38,16 +62,6 @@ jobs:
           POSTGRES_DB: postgres
         ports:
           - 6200:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
-      postgres-partner:
-        image: postgres
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-        ports:
-          - 6600:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
       sportmen:
@@ -62,7 +76,7 @@ jobs:
           SPORTMEN_DB_PORT: 5432
         ports:
           - 6250:80
-      
+ 
 
     steps:
       - uses: actions/checkout@v1
@@ -70,5 +84,7 @@ jobs:
       #   run: docker pull us-east1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/repo/sportmen
       # - name: Test
       #   run: docker run -d --rm --network="host" -p 6250:80 -e SPORTMEN_DB_HOST='localhost' -e SPORTMEN_DB_PORT='6200' -e SPORTMEN_DB_PASSWORD='postgres' -e SPORTMEN_DB_USER='postgres' -e SPORTMEN_DB_NAME='postgres' -e AUTH_HOST='http://localhost:6050' -e AUTH_PATH_AUTH='/auth/auth' us-east1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/repo/sportmen
-      - name: Ping
+      - name: Ping Sportmen
         run: curl  -X GET 'localhost:6250/sportmen/ping'
+      - name: Ping Partner
+        run: curl  -X GET 'localhost:6650/partner/ping'
