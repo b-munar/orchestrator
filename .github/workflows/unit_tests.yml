@@ -20,7 +20,7 @@ jobs:
           - 6000:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-      postgres-sub:
+      subscription_db:
         image: postgres
         env:
           POSTGRES_USER: postgres
@@ -29,6 +29,20 @@ jobs:
         ports:
           - 6400:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+      subscription:
+        image: us-east1-docker.pkg.dev/composite-bruin-419400/repo/subscription
+        env:
+          AUTH_HOST: http://localhost:6050
+          AUTH_PATH_AUTH: /auth/auth
+          SUBSCRIPTION_DB_USER: postgres
+          SUBSCRIPTION_DB_HOST: subscription_db
+          SUBSCRIPTION_DB_NAME: postgres
+          SUBSCRIPTION_DB_PASSWORD: postgres
+          SUBSCRIPTION_DB_PORT: 5432
+        ports:
+          - 6450:80
+   
 
       partner_db:
         image: postgres
@@ -54,7 +68,6 @@ jobs:
         ports:
           - 6650:80
    
-
       sportmen_db:
         image: postgres
         env:
@@ -81,11 +94,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      # - name: Build
-      #   run: docker pull us-east1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/repo/sportmen
-      # - name: Test
-      #   run: docker run -d --rm --network="host" -p 6250:80 -e SPORTMEN_DB_HOST='localhost' -e SPORTMEN_DB_PORT='6200' -e SPORTMEN_DB_PASSWORD='postgres' -e SPORTMEN_DB_USER='postgres' -e SPORTMEN_DB_NAME='postgres' -e AUTH_HOST='http://localhost:6050' -e AUTH_PATH_AUTH='/auth/auth' us-east1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/repo/sportmen
       - name: Ping Sportmen
         run: curl  -X GET 'localhost:6250/sportmen/ping'
       - name: Ping Partner
         run: curl  -X GET 'localhost:6650/partner/ping'
+      - name: Ping Partner
+        run: curl  -X GET 'localhost:6450/susbcription/ping'
