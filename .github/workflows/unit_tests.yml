@@ -51,7 +51,7 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
       sportmen:
-        image: us-east1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/repo/sportmen
+        image: us-east1-docker.pkg.dev/composite-bruin-419400/repo/sportmen
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -71,9 +71,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - name: Build
-        run: docker pull us-east1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/repo/sportmen
-      - name: Test
-        run: docker run -d --rm --network="host" -p 6250:80 -e SPORTMEN_DB_HOST='localhost' -e SPORTMEN_DB_PORT='6200' -e SPORTMEN_DB_PASSWORD='postgres' -e SPORTMEN_DB_USER='postgres' -e SPORTMEN_DB_NAME='postgres' -e AUTH_HOST='http://localhost:6050' -e AUTH_PATH_AUTH='/auth/auth' us-east1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/repo/sportmen
+      # - name: Build
+      #   run: docker pull us-east1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/repo/sportmen
+      # - name: Test
+      #   run: docker run -d --rm --network="host" -p 6250:80 -e SPORTMEN_DB_HOST='localhost' -e SPORTMEN_DB_PORT='6200' -e SPORTMEN_DB_PASSWORD='postgres' -e SPORTMEN_DB_USER='postgres' -e SPORTMEN_DB_NAME='postgres' -e AUTH_HOST='http://localhost:6050' -e AUTH_PATH_AUTH='/auth/auth' us-east1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/repo/sportmen
       - name: Ping
         run: curl  -X GET 'localhost:6250/sportmen/ping'
