@@ -1,0 +1,57 @@
+name: Unit tests
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+jobs:
+  test_event:
+    runs-on: ubuntu-latest
+    services:
+
+      postgres-auth:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 6000:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+      postgres-sub:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 6400:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+      postgres-sport:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 6200:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+      postgres-host:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 6600:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    # steps:
+    #   - uses: actions/checkout@v1
+    #   - name: Build
+    #     run: docker build -t event-image .
+    #   - name: Test
+    #     run: docker run --rm --network="host" -e TEST=true -e EVENT_DB_HOST='localhost' -e EVENT_DB_PORT='5432' -e EVENT_DB_PASSWORD='postgres' -e EVENT_DB_USER='postgres' -e EVENT_DB_NAME='postgres' event-image
