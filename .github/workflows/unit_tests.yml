@@ -136,9 +136,8 @@ jobs:
         run: curl 'localhost:6350/orchestrator/ping'
       
       - name: Register Orchestartor
-        run: >
+        run: |
           curl POST 'localhost:6350/orchestrator/register/sportman' \
-          --header 'Accept: */*' \
           --header 'Content-Type: application/json' \
           --data-raw '{
           "email": "tejo@email.com",
