@@ -168,8 +168,7 @@ jobs:
         
       - name: Register Orchestrator Partner
         run: |
-          curl  -X POST \
-          'localhost:6350/orchestrator/register/partner' \
+          curl  -X POST 'localhost:6350/orchestrator/register/partner' \
           --header 'Content-Type: application/json' \
           --data-raw '{
           "email": "partner@email.com",
@@ -188,4 +187,24 @@ jobs:
           "sports": ["basketball"],
           "companies": ["Uniandes"],
           "type_services": ["education"]
+          }'
+
+      - name: Login Orchestrator Sportment
+        run: |
+          curl  -X POST \
+          ''localhost:6350/orchestrator/login' \
+          --header 'Content-Type: application/json' \
+          --data-raw '{
+          "email": "sportmen@email.com",
+          "password": "password"
+          }'
+          
+      - name: Login Orchestrator Partner
+        run: |
+          curl  -X POST \
+          ''localhost:6350/orchestrator/login' \
+          --header 'Content-Type: application/json' \
+          --data-raw '{
+          "email": "partner@email.com",
+          "password": "password"
           }'
