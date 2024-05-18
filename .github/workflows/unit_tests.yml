@@ -126,21 +126,25 @@ jobs:
 
       - name: Ping Auth
         run: curl  -X GET 'localhost:6050/auth/ping'
+        
       - name: Ping Sportmen
         run: curl  -X GET 'localhost:6250/sportmen/ping'
+
       - name: Ping Partner
         run: curl  -X GET 'localhost:6650/partner/ping'
+
       - name: Ping Subscription
         run: curl 'localhost:6450/subscription/ping'
+
       - name: Ping Orchestrator
         run: curl 'localhost:6350/orchestrator/ping'
       
-      - name: Register Orchestartor
+      - name: Register Orchestrator Sportment
         run: |
           curl  -X POST 'localhost:6350/orchestrator/register/sportman' \
           --header 'Content-Type: application/json' \
           --data-raw '{
-          "email": "tejo@email.com",
+          "email": "sportmen@email.com",
           "password": "password",
           "name": "Brahian",
           "last_name": "Munar",
@@ -162,3 +166,26 @@ jobs:
           ]
           }'
         
+      - name: Register Orchestrator Partner
+        run: |
+          curl  -X POST \
+          'localhost:6350/orchestrator/orchestrator/register/partner' \
+          --header 'Content-Type: application/json' \
+          --data-raw '{
+          "email": "partner@email.com",
+          "password": "password",
+          "name": "parnert",
+          "last_name": "parnert",
+          "age": 20,
+          "profession": "cowboy",
+          "license": "Hunter X",
+          "identification_type": "CC",
+          "identification": "314159",
+          "country_birth": "Colombia",
+          "city_birth": "Cali",
+          "country_residence": "Colombia",
+          "city_residence": "Elvira",
+          "sports": ["basketball"],
+          "companies": ["Uniandes"],
+          "type_services": ["education"]
+          }'
