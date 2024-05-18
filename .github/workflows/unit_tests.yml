@@ -45,13 +45,14 @@ jobs:
         env:
           AUTH_HOST: http://localhost:6050
           AUTH_PATH_AUTH: /auth/auth
-          SPORTMEN_DB_USER: postgres
-          SPORTMEN_DB_HOST: partner_db
-          SPORTMEN_DB_NAME: postgres
-          SPORTMEN_DB_PASSWORD: postgres
-          SPORTMEN_DB_PORT: 5432
+          AUTH_PORT: 6050
+          PARTNER_DB_USER: postgres
+          PARTNER_DB_HOST: partner_db
+          PARTNER_DB_NAME: postgres
+          PARTNER_DB_PASSWORD: postgres
+          PARTNER_DB_PORT: 5432
         ports:
-          - 6250:80
+          - 6650:80
    
 
       sportmen_db:
